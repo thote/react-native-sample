@@ -3,11 +3,11 @@
 import React, {
   AppRegistry,
   Component,
+  Image,
+  ListView,
   StyleSheet,
   Text,
   View,
-  Image,
-  ListView
 } from 'react-native';
 
 var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
@@ -27,11 +27,11 @@ class firstProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: new ListView.dataSource({
+      dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
-      loaded: false
-    }
+      loaded: false,
+    };
   }
 
   componentDidMount() {
@@ -51,51 +51,74 @@ class firstProject extends Component {
   }
 
   render() {
-      var movie = MOCKED_MOVIES_DATA[0];
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderMovie}
+        style={styles.listView}
+      />
+    );
+  }
+
+  renderLoadingView() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
+        <Text>
+          Loading movies...
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-
-        <Text>{movie.title}</Text>
-        <Text>{movie.year}</Text>
-        <Image source={{uri: movie.posters.thumbnail}}
-               style={styles.thumbnail}/>
-
       </View>
+    );
+  }
 
+  renderMovie(movie) {
+    return (
+      <View style={styles.container}>
+        <Image
+          source={{uri: movie.posters.thumbnail}}
+          style={styles.thumbnail}
+        />
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.year}>{movie.year}</Text>
+        </View>
+      </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'flex-start',
+    backgroundColor: '#ffffff',
+    margin: 3,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  rightContainer: {
+    flex: 1,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  title: {
+    fontSize: 16,
+    marginBottom: 8,
+    marginLeft: 10,
+    textAlign: 'left',
+  },
+  year: {
+    textAlign: 'left',
+    marginLeft: 10,
   },
   thumbnail: {
-    backgroundColor: '#99ff66',
-    width: 320,
-    height: 360,
+    margin: 5,
+    width: 80,
+    height: 120,
+  },
+  listView: {
+    paddingTop: 20,
+    backgroundColor: '#000000',
   },
 });
 
