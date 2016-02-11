@@ -12,7 +12,7 @@ import React, {
 
 var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
 var API_URL = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json';
-var PAGE_SIZE = 25;
+var PAGE_SIZE = 50;
 var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
 var REQUEST_URL = API_URL + PARAMS;
 
@@ -85,7 +85,9 @@ export default class FirstProjectNative extends Component {
         />
         <View style={styles.rightContainer}>
           <Text style={styles.title}>{movie.title}</Text>
-          <Text style={styles.year}>{movie.year}</Text>
+          <Text style={styles.year}>Release: {movie.year}</Text>
+          <Text style={styles.year}>Rating: {movie.ratings.audience_score}</Text>
+          <Text style={styles.year}>Duration: {movie.runtime} mins</Text>
         </View>
       </View>
     );
@@ -98,14 +100,14 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    backgroundColor: '#ff2255',
-    marginTop: 20,
+    backgroundColor: '#21406F',
+    marginTop: 0,
   },
   loadingContainer: {
-    flex: 2,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#55000000'
+    backgroundColor: '#21406F'
   },
   container: {
     flex: 3,
@@ -141,8 +143,9 @@ var styles = StyleSheet.create({
     height: 120,
   },
   listView: {
-    paddingTop: 20,
-    backgroundColor: '#000000',
+    paddingTop: 0,
+    margin:5,
+    backgroundColor: '#21406F',
   },
 });
 
