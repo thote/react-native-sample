@@ -74,10 +74,10 @@ export default class FirstProjectNative extends Component {
           <TextInput onChangeText={this.onSearchTextChange.bind(this)}
                      value={this.state.searchText}
                      placeholder="Search a movie..."
-                     style={styles.movieSearch}/>
+                     style={styles.movieSearchInput}/>
           <TouchableElement onPress={this.buttonClicked.bind(this)}>
-            <View>
-              <Text style={styles.button}>Search</Text>
+            <View style={styles.newContainer}>
+              <Text style={styles.newText}>Search</Text>
             </View>
           </TouchableElement>
         </View>
@@ -172,28 +172,46 @@ var styles = StyleSheet.create({
     margin:5,
     backgroundColor: '#21406F',
   },
-  movieSearch: {
+
+  movieSearchInput: {
+    flex: 1,
     color: 'black',
+    height: 50,
+    width: 100,
   },
+
   buttonContainer: {
     flex: 1,
     height:20,
     width:40,
     backgroundColor: '#FFCCCC'
   },
-  button: {
-    height:20,
-    width:80,
-    textAlign: 'center',
-    color: 'black',
-    marginBottom: 7,
-    backgroundColor: 'grey'
-  },
 
   searchContainer: {
-    flex: 1,
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    margin: 5,
+    padding: 5,
+  },
+
+  newContainer: {
+    flexDirection: 'column',
+    height: 50,
+    justifyContent: 'center',
+  },
+
+  newText: {
+    height: 25,
+    color: "#ffffff",
+    backgroundColor: 'grey',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    marginRight: 10,
+    marginLeft: 10,
+    padding: 5,
   }
+
 
 });
 
