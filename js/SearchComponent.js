@@ -9,12 +9,12 @@ import React, {
   Text,
   View,
   TextInput,
-  Platform,
-  TouchableHighlight,
-  TouchableNativeFeedback
 } from 'react-native';
 
 import SearchPresenter from "./SearchPresenter.js";
+import MovieSearchItem from "./MovieSearchItem";
+import LoadingView from "./LoadingView";
+import ButtonView from "./ButtonView";
 
 
 export default class SearchComponent extends Component {
@@ -43,6 +43,10 @@ export default class SearchComponent extends Component {
     this.refs.moviesListView.scrollTo(0);
   }
 
+  showLoadingScreen() {
+    this.setState({loaded: false});
+  }
+
   showAlert(msg) {
     alert(msg + this.state.searchText);
   }
@@ -51,14 +55,15 @@ export default class SearchComponent extends Component {
     return this.state.searchText;
   }
 
+  renderMovie(movie) {
+    return (<MovieSearchItem presenter={this.p} movie={movie} />);
+  }
+
   render() {
     if (!this.state.loaded) {
-      return this.renderLoadingView();
+      return (<LoadingView what="Movies" />);
     }
-    var TouchableElement = TouchableHighlight;
-    if (Platform.OS === 'android') {
-      TouchableElement = TouchableNativeFeedback;
-    }
+
 
     return (
       <View style={styles.mainContainer}>
@@ -69,11 +74,7 @@ export default class SearchComponent extends Component {
                      value={this.state.searchText}
                      placeholder="Search a movie..."
                      style={styles.movieSearchInput}/>
-          <TouchableElement onPress={this.p.search.bind(this.p)}>
-            <View style={styles.newContainer}>
-              <Text style={styles.newText}>Search</Text>
-            </View>
-          </TouchableElement>
+          <ButtonView text="Search" onClick={this.p.search.bind(this.p)} />
         </View>
 
         <ListView
@@ -83,40 +84,6 @@ export default class SearchComponent extends Component {
           style={styles.listView}
         />
       </View>
-    );
-  }
-
-  renderLoadingView() {
-    return (
-      <View style={styles.loadingContainer}>
-        <Text>
-          Loading movies...
-        </Text>
-      </View>
-    );
-  }
-
-  renderMovie(movie) {
-    var TouchableElement = TouchableHighlight;
-    if (Platform.OS === 'android') {
-      TouchableElement = TouchableNativeFeedback;
-    }
-
-    return (
-      <TouchableElement onPress={() => this.p.showMovieDetails(movie)}>
-        <View style={styles.container}>
-          <Image
-            source={{uri: movie.posters.thumbnail}}
-            style={styles.thumbnail}
-          />
-          <View style={styles.rightContainer}>
-            <Text style={styles.title}>{movie.title}</Text>
-            <Text style={styles.year}>Release: {movie.year}</Text>
-            <Text style={styles.year}>Rating: {movie.ratings.audience_score}</Text>
-            <Text style={styles.year}>Duration: {movie.runtime} mins</Text>
-          </View>
-        </View>
-      </TouchableElement>
     );
   }
 }
@@ -130,29 +97,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#21406F',
     marginTop: 0,
   },
-  loadingContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#21406F'
-  },
-  container: {
-    flex: 3,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: '#ffffff',
-    margin: 3,
-  },
-  rightContainer: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 16,
-    marginBottom: 8,
-    marginLeft: 10,
-    textAlign: 'left',
-  },
+
   mainTitle: {
     fontSize: 26,
     marginBottom: 8,
@@ -160,15 +105,7 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white'
   },
-  year: {
-    textAlign: 'left',
-    marginLeft: 10,
-  },
-  thumbnail: {
-    margin: 5,
-    width: 80,
-    height: 120,
-  },
+
   listView: {
     paddingTop: 0,
     margin:5,
@@ -182,35 +119,11 @@ var styles = StyleSheet.create({
     width: 100,
   },
 
-  buttonContainer: {
-    flex: 1,
-    height:20,
-    width:40,
-    backgroundColor: '#FFCCCC'
-  },
-
   searchContainer: {
     backgroundColor: "#ffffff",
     flexDirection: 'row',
     flexWrap: 'wrap',
     margin: 5,
-    padding: 5,
-  },
-
-  newContainer: {
-    flexDirection: 'column',
-    height: 50,
-    justifyContent: 'center',
-  },
-
-  newText: {
-    height: 25,
-    color: "#ffffff",
-    backgroundColor: 'grey',
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    marginRight: 10,
-    marginLeft: 10,
     padding: 5,
   }
 });

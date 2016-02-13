@@ -19,7 +19,9 @@ export default class SearchPresenter {
   fetchData(query) {
     fetch(this._getUrl(query))
       .then(response => response.json())
-      .then(response => this.v.showMovies(response.movies))
+      .then(response => {
+        this.v.showMovies(response.movies);
+      })
       .done();
   }
 
@@ -29,6 +31,7 @@ export default class SearchPresenter {
 
   search() {
     this.v.showMovies([]);
+    this.v.showLoadingScreen();
     this.fetchData(this.v.getSearchQuery())
   }
 
