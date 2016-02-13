@@ -29,6 +29,8 @@ export default class SearchComponent extends Component {
       loaded: false,
       searchText: ""
     };
+
+    this.onMovieSelected = this.onMovieSelected.bind(this);
   }
 
   componentDidMount() {
@@ -79,7 +81,7 @@ export default class SearchComponent extends Component {
         <ListView
           ref="moviesListView"
           dataSource={this.state.dataSource}
-          renderRow={this.renderMovie}
+          renderRow={this.renderMovie.bind(this)}
           style={styles.listView}
         />
       </View>
@@ -96,20 +98,32 @@ export default class SearchComponent extends Component {
     );
   }
 
+  onMovieSelected(movie) {
+    //this.p.showMovie(movie);
+    this.props.navigator.routeTo({name: 'MovieComponent'});
+  }
+
   renderMovie(movie) {
+    var TouchableElement = TouchableHighlight;
+    if (Platform.OS === 'android') {
+      TouchableElement = TouchableNativeFeedback;
+    }
+
     return (
-      <View style={styles.container}>
-        <Image
-          source={{uri: movie.posters.thumbnail}}
-          style={styles.thumbnail}
-        />
-        <View style={styles.rightContainer}>
-          <Text style={styles.title}>{movie.title}</Text>
-          <Text style={styles.year}>Release: {movie.year}</Text>
-          <Text style={styles.year}>Rating: {movie.ratings.audience_score}</Text>
-          <Text style={styles.year}>Duration: {movie.runtime} mins</Text>
+      <TouchableElement onPress={() => this.onMovieSelected(movie)}>
+        <View style={styles.container}>
+          <Image
+            source={{uri: movie.posters.thumbnail}}
+            style={styles.thumbnail}
+          />
+          <View style={styles.rightContainer}>
+            <Text style={styles.title}>{movie.title}</Text>
+            <Text style={styles.year}>Release: {movie.year}</Text>
+            <Text style={styles.year}>Rating: {movie.ratings.audience_score}</Text>
+            <Text style={styles.year}>Duration: {movie.runtime} mins</Text>
+          </View>
         </View>
-      </View>
+      </TouchableElement>
     );
   }
 }
@@ -206,7 +220,7 @@ var styles = StyleSheet.create({
     marginLeft: 10,
     padding: 5,
   }
-
-
 });
+
+AppRegistry.registerComponent('SearchComponent', () => SearchComponent);
 

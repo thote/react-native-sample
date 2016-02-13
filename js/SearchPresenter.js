@@ -1,4 +1,7 @@
 
+'use strict';
+import MovieComponent from "./MovieComponent"
+
 var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
 var API_URL = 'http://api.rottentomatoes.com/api/public/v1.0/';
 var IN_THEATRES = 'lists/movies/in_theaters.json';
@@ -26,6 +29,14 @@ export default class SearchPresenter {
   buttonClicked() {
     this.v.showMovies([]);
     this.fetchData(this.v.getSearchQuery())
+  }
+
+  showMovie(movie) {
+    this.v.props.navigator.push({
+      title: movie.title,
+      component: MovieComponent,
+      passProps: {movie},
+    });
   }
 
   _getUrl(query) {
