@@ -30,7 +30,7 @@ var router = (route, navigator) => {
   if (route.name == 'SearchComponent') {
     component = (<SearchComponent navigator={router}/>);
   } else if (route.name = "MovieComponent") {
-    component = (<MovieComponent navigator={router}/>);
+    component = (<MovieComponent navigator={router} movie={route.movie}/>);
   }
   return component;
 };

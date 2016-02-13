@@ -6,13 +6,14 @@ var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
 var API_URL = 'http://api.rottentomatoes.com/api/public/v1.0/';
 var IN_THEATRES = 'lists/movies/in_theaters.json';
 var ALL_MOVIES = 'movies.json';
-var PAGE_SIZE = 50;
+var PAGE_SIZE = 20;
 var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
 
 export default class SearchPresenter {
 
-  constructor(viewComponent) {
+  constructor(viewComponent, navigator) {
     this.v = viewComponent;
+    this.n = navigator;
   }
 
   fetchData(query) {
@@ -26,17 +27,13 @@ export default class SearchPresenter {
     this.v.setState({searchText: text});
   }
 
-  buttonClicked() {
+  search() {
     this.v.showMovies([]);
     this.fetchData(this.v.getSearchQuery())
   }
 
-  showMovie(movie) {
-    this.v.props.navigator.push({
-      title: movie.title,
-      component: MovieComponent,
-      passProps: {movie},
-    });
+  showMovieDetails(movie) {
+    this.n.routeTo({name: "MovieComponent", movie: movie });
   }
 
   _getUrl(query) {

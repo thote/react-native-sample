@@ -21,7 +21,7 @@ export default class SearchComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.p = new SearchPresenter(this);
+    this.p = new SearchPresenter(this, props.navigator);
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -29,8 +29,6 @@ export default class SearchComponent extends Component {
       loaded: false,
       searchText: ""
     };
-
-    this.onMovieSelected = this.onMovieSelected.bind(this);
   }
 
   componentDidMount() {
@@ -71,7 +69,7 @@ export default class SearchComponent extends Component {
                      value={this.state.searchText}
                      placeholder="Search a movie..."
                      style={styles.movieSearchInput}/>
-          <TouchableElement onPress={this.p.buttonClicked.bind(this.p)}>
+          <TouchableElement onPress={this.p.search.bind(this.p)}>
             <View style={styles.newContainer}>
               <Text style={styles.newText}>Search</Text>
             </View>
@@ -98,11 +96,6 @@ export default class SearchComponent extends Component {
     );
   }
 
-  onMovieSelected(movie) {
-    //this.p.showMovie(movie);
-    this.props.navigator.routeTo({name: 'MovieComponent'});
-  }
-
   renderMovie(movie) {
     var TouchableElement = TouchableHighlight;
     if (Platform.OS === 'android') {
@@ -110,7 +103,7 @@ export default class SearchComponent extends Component {
     }
 
     return (
-      <TouchableElement onPress={() => this.onMovieSelected(movie)}>
+      <TouchableElement onPress={() => this.p.showMovieDetails(movie)}>
         <View style={styles.container}>
           <Image
             source={{uri: movie.posters.thumbnail}}
