@@ -8,6 +8,10 @@ import React, {
   StyleSheet,
   Text,
   View,
+  TextInput,
+  Platform,
+  TouchableHighlight,
+  TouchableNativeFeedback
 } from 'react-native';
 
 var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
@@ -15,12 +19,6 @@ var API_URL = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_the
 var PAGE_SIZE = 50;
 var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
 var REQUEST_URL = API_URL + PARAMS;
-
-var MOCKED_MOVIES_DATA =  [
-  { title: 'Kendasampige',
-    year: '2015',
-    posters: {thumbnail: 'http://www.chitraloka.com/images/stills/kendasampige3.jpg'}}
-];
 
 export default class FirstProjectNative extends Component {
 
@@ -31,6 +29,7 @@ export default class FirstProjectNative extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      searchText: "",
     };
   }
 
@@ -50,13 +49,39 @@ export default class FirstProjectNative extends Component {
       .done();
   }
 
+  onSearchTextChange(text) {
+    this.setState({searchText: text});
+  }
+
+  buttonClicked() {
+    alert('button clicked');
+  }
+
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
+    var TouchableElement = TouchableHighlight;
+    if (Platform.OS === 'android') {
+      TouchableElement = TouchableNativeFeedback;
+    }
+
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.mainTitle}>Best movies to watch</Text>
+
+        <View style={styles.searchContainer}>
+          <TextInput onChangeText={this.onSearchTextChange.bind(this)}
+                     value={this.state.searchText}
+                     placeholder="Search a movie..."
+                     style={styles.movieSearch}/>
+          <TouchableElement onPress={this.buttonClicked.bind(this)}>
+            <View>
+              <Text style={styles.button}>Search</Text>
+            </View>
+          </TouchableElement>
+        </View>
+
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderMovie}
@@ -147,5 +172,28 @@ var styles = StyleSheet.create({
     margin:5,
     backgroundColor: '#21406F',
   },
+  movieSearch: {
+    color: 'black',
+  },
+  buttonContainer: {
+    flex: 1,
+    height:20,
+    width:40,
+    backgroundColor: '#FFCCCC'
+  },
+  button: {
+    height:20,
+    width:80,
+    textAlign: 'center',
+    color: 'black',
+    marginBottom: 7,
+    backgroundColor: 'grey'
+  },
+
+  searchContainer: {
+    flex: 1,
+    backgroundColor: "#ffffff"
+  }
+
 });
 
