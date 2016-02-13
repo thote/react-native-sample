@@ -1,10 +1,10 @@
 
 'use strict';
 
-import FirstProjectNative from "./index.native"
+import SearchComponent from "./js/SearchComponent.js"
 import React, { AppRegistry } from 'react-native';
 
-class FirstIosProject extends FirstProjectNative {
+class FirstIosProject extends SearchComponent {
 
 };
 

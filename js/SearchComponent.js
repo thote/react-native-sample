@@ -14,47 +14,41 @@ import React, {
   TouchableNativeFeedback
 } from 'react-native';
 
-var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
-var API_URL = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json';
-var PAGE_SIZE = 50;
-var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
-var REQUEST_URL = API_URL + PARAMS;
+import SearchPresenter from "./SearchPresenter.js";
 
-export default class FirstProjectNative extends Component {
+
+export default class SearchComponent extends Component {
 
   constructor(props) {
     super(props);
+    this.p = new SearchPresenter(this);
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      searchText: "",
+      searchText: ""
     };
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.p.fetchData();
   }
 
-  fetchData() {
-    fetch(REQUEST_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
-          loaded: true,
-        });
-      })
-      .done();
+  showMovies(movies) {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(movies),
+      loaded: true
+    });
+    this.refs.moviesListView.scrollTo(0);
   }
 
-  onSearchTextChange(text) {
-    this.setState({searchText: text});
+  showAlert(msg) {
+    alert(msg + this.state.searchText);
   }
 
-  buttonClicked() {
-    alert('button clicked');
+  getSearchQuery() {
+    return this.state.searchText;
   }
 
   render() {
@@ -71,11 +65,11 @@ export default class FirstProjectNative extends Component {
         <Text style={styles.mainTitle}>Best movies to watch</Text>
 
         <View style={styles.searchContainer}>
-          <TextInput onChangeText={this.onSearchTextChange.bind(this)}
+          <TextInput onChangeText={this.p.onSearchTextChange.bind(this.p)}
                      value={this.state.searchText}
                      placeholder="Search a movie..."
                      style={styles.movieSearchInput}/>
-          <TouchableElement onPress={this.buttonClicked.bind(this)}>
+          <TouchableElement onPress={this.p.buttonClicked.bind(this.p)}>
             <View style={styles.newContainer}>
               <Text style={styles.newText}>Search</Text>
             </View>
@@ -83,6 +77,7 @@ export default class FirstProjectNative extends Component {
         </View>
 
         <ListView
+          ref="moviesListView"
           dataSource={this.state.dataSource}
           renderRow={this.renderMovie}
           style={styles.listView}
