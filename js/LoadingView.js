@@ -31,18 +31,14 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#21406F'
+    backgroundColor: '#000000bb'
   },
 
   text: {
     height: 25,
     color: "#ffffff",
-    backgroundColor: 'grey',
     textAlign: 'center',
     textAlignVertical: 'center',
-    marginRight: 10,
-    marginLeft: 10,
-    padding: 5
   }
 });
 
