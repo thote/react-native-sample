@@ -16,7 +16,7 @@ var router = (route, navigator) => {
   _navigator = navigator;
   var routeTo = (nextRoute) => {
     var nextIndex = route.index + 1;
-    navigator.push({name: nextRoute.name, index: nextIndex});
+    navigator.push({name: nextRoute.name, props: nextRoute.props, index: nextIndex});
   };
 
   var goBack = () => {
@@ -30,7 +30,7 @@ var router = (route, navigator) => {
   if (route.name == 'SearchComponent') {
     component = (<SearchComponent navigator={router}/>);
   } else if (route.name = "MovieComponent") {
-    component = (<MovieComponent navigator={router} movie={route.movie}/>);
+    component = (<MovieComponent navigator={router} movie={route.props.movie}/>);
   }
   return component;
 };

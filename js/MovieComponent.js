@@ -16,7 +16,7 @@ export default class MoviesComponent extends Component {
   render() {
     return (
       <View>
-        <Text>This is the text</Text>
+        <Text>{this.movie.title}</Text>
       </View>
     );
   }

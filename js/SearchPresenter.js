@@ -36,7 +36,7 @@ export default class SearchPresenter {
   }
 
   showMovieDetails(movie) {
-    this.n.routeTo({name: "MovieComponent", movie: movie });
+    this.n.routeTo({name: "MovieComponent", props: {movie: movie }});
   }
 
   _getUrl(query) {
