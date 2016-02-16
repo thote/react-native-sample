@@ -8,11 +8,17 @@ import React, {
   StyleSheet,
   Image
 } from 'react-native';
+import ButtonView from "./ButtonView";
 
 export default class MoviesComponent extends Component {
   constructor(props) {
     super(props);
+    this.n = props.navigator;
     this.movie = props.movie;
+  }
+
+  onGoBack() {
+    this.n.goBack();
   }
 
   render() {
@@ -36,6 +42,7 @@ export default class MoviesComponent extends Component {
           <Text style={styles.synopsisText}>Synopsis:</Text>
           <Text style={styles.normalText}>{this.movie.synopsis}</Text>
         </View>
+        <ButtonView text="< Back" onClick={this.onGoBack.bind(this)}/>
       </View>
     );
   }

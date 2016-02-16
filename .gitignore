@@ -21,7 +21,8 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
-
+dist
+*.log
 # Android/IJ
 #
 .idea
