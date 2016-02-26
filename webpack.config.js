@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./js/MoviesApp.web.js",
+  entry: "./js/MoviesApp.js",
   output: {
     path: "./dist",
     filename: "./bundle.js"
