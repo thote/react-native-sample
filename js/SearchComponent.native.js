@@ -12,7 +12,7 @@ import React, {
 } from 'react-native';
 
 import SearchPresenter from "./SearchPresenter";
-import MovieSearchItem from "./MovieSearchItem";
+import MovieSearchItem from "./SearchItem.native.js";
 import LoadingView from "./LoadingView";
 import ButtonView from "./ButtonView";
 import MoviesRepo from "./MoviesRepo"

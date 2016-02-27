@@ -9,8 +9,18 @@ var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
 
 export default class MoviesRepo {
 
-  get(query) {
-    return fetch(this._getUrl(query));
+  get(query, callback) {
+    //return fetch(this._getUrl(query));
+
+    $.ajax({
+      url: this.getUrl(query),
+      type: 'GET',
+      success: function(result) {
+        console.log("suceess ", result)
+        callback(result);
+      }
+    });
+
   }
 
   _getUrl(query) {
