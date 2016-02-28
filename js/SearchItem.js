@@ -11,13 +11,14 @@ export default class SearchItem extends React.Component {
   render() {
     var styles = {
       main: {
-        width: '100%',
-        backgroundColor: 'grey'
+        clear: 'both',
+        backgroundColor: 'white'
       },
 
       image: {
         width: '25%',
         float: 'left',
+        clean: 'none',
         height: '150px',
         paddingTop: '10px'
       },
@@ -25,22 +26,27 @@ export default class SearchItem extends React.Component {
       rightSection: {
         width: '75%',
         float: 'left',
+        clean: 'none',
+        color: 'black',
         height: '150px',
         paddingTop: '10px',
         paddingLeft: '20px',
-        color: 'black',
+      },
 
+      title: {
+        fontSize: '22px'
       }
+
     };
 
     return (
       <div style={styles.main}>
-        <img src={this.movie.posters.thumbnail} style={styles.image}/>
+        <img src={this.movie.poster} style={styles.image}/>
         <div style={styles.rightSection}>
-          <div>{this.movie.title}</div>
-          <div>Release: {this.movie.year}</div>
-          <div>Rating: {this.movie.ratings.audience_score}</div>
-          <div>Duration: {this.movie.runtime} mins</div>
+          <div style={styles.title}>{this.movie.title}</div>
+          <div>Release: {this.movie.releasedOn}</div>
+          <div>Rating: {this.movie.rating}</div>
+          <div>Duration: {this.movie.duration} mins</div>
         </div>
       </div>
     );

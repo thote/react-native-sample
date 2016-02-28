@@ -17,8 +17,6 @@ export default class SearchComponent extends React.Component {
   componentDidMount() {
     console.log("SearchComponentDidMount");
     new MoviesRepo().get()
-      .then(response => response.json())
-      .then(response => response.movies)
       .then(this.onSearchResults.bind(this));
   }
 
@@ -30,7 +28,7 @@ export default class SearchComponent extends React.Component {
 
   renderItem(movie) {
     return (
-      <SearchItem movie={movie} />
+      <li><SearchItem movie={movie} /></li>
     );
   }
 
@@ -38,11 +36,14 @@ export default class SearchComponent extends React.Component {
     var self = this;
     var items = this.state.movies.map(this.renderItem);
     return (
-      <div className="search">
-        <span className="header">Best Movies to Watch</span>
-        <ul>
-          {items}
-        </ul>
-    </div>);
+      <div>
+        <div className="search">
+          <span className="header">Best Movies to Watch</span>
+          <ul className="moviesList">
+            {items}
+          </ul>
+        </div>
+      </div>
+    );
   }
 }

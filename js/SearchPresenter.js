@@ -11,16 +11,10 @@ export default class SearchPresenter {
   }
 
   fetchData(query) {
-    //this.r.get()
-    //  .then(response => response.json())
-    //  .then(response => {
-    //    this.v.showMovies(response.movies);
-    //  })
-    //  .done();
-
-    this.r.get(query, response => {
-      this.v.showMovies(response.json().movies);
-    });
+    this.r.get()
+      .then(response => {
+        this.v.showMovies(response.movies);
+      });
   }
 
   onSearchTextChange(text) {

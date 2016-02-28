@@ -9,22 +9,23 @@ var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
 
 export default class MoviesRepo {
 
-  getAjax(query, callback) {
-    console.log("making ajax call", this._getUrl(query));
-    //$.ajax({
-    //  url: this._getUrl(query),
-    //  type: 'GET',
-    //  success: function(result) {
-    //    console.log("suceess ", result)
-    //    callback(result);
-    //  }
-    //});
-
+  get(query) {
+    return fetch(this._getUrl(query))
+      .then(response => response.json())
+      .then(this.massage)
   }
 
-  get(query) {
-    console.log("fetch", this._getUrl(query));
-    return fetch(this._getUrl(query));
+  massage(response) {
+    return response.movies.map((movie, index) => {
+      console.log("response:", index, movie);
+      return {
+        title: movie.title,
+        releasedOn: movie.year,
+        rating: movie.ratings.audience_score,
+        duration: movie.runtime,
+        poster: movie.posters.thumbnail
+      }
+    });
   }
 
   _getUrl(query) {
@@ -33,4 +34,5 @@ export default class MoviesRepo {
     }
     return API_URL + IN_THEATRES + PARAMS;
   }
+
 }
