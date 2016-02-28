@@ -16,11 +16,11 @@ export default class SearchItem extends React.Component {
       },
 
       image: {
-        width: '25%',
+        width: '100px',
         float: 'left',
         clean: 'none',
         height: '150px',
-        paddingTop: '10px'
+        margin: '10px'
       },
 
       rightSection: {
