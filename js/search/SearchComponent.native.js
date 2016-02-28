@@ -11,18 +11,17 @@ import React, {
   TextInput,
 } from 'react-native';
 
-import SearchPresenter from "./SearchPresenter";
 import MovieSearchItem from "./SearchItem.native.js";
 import LoadingView from "./../loading/LoadingView";
 import ButtonView from "./../views/ButtonView";
-import MoviesRepo from "./../repo/MoviesRepo"
+import MoviesRepo from "./../repo/MoviesRepo";
 
 
 export default class SearchComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.p = new SearchPresenter(this, props.navigator, new MoviesRepo());
+    this.moviesRepo = new MoviesRepo();
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -33,8 +32,7 @@ export default class SearchComponent extends Component {
   }
 
   componentDidMount() {
-    new MoviesRepo().get()
-      .then(this.showMovies.bind(this));
+   this.search();
   }
 
   showMovies(movies) {
@@ -45,6 +43,21 @@ export default class SearchComponent extends Component {
     this.refs.moviesListView.scrollTo(0);
   }
 
+  onSearchTextChange(text) {
+    this.setState({searchText: text});
+  }
+
+  onSearchClicked() {
+    this.showMovies([]);
+    this.showLoadingScreen();
+    this.search(this.state.searchText)
+  }
+
+  search(query) {
+    this.moviesRepo.get(query)
+      .then(this.showMovies.bind(this));
+  }
+
   showLoadingScreen() {
     this.setState({loaded: false});
   }
@@ -53,12 +66,8 @@ export default class SearchComponent extends Component {
     alert(msg + this.state.searchText);
   }
 
-  getSearchQuery() {
-    return this.state.searchText;
-  }
-
   renderMovie(movie) {
-    return (<MovieSearchItem presenter={this.p} movie={movie} />);
+    return (<MovieSearchItem navigator={this.props.navigator} movie={movie} />);
   }
 
   render() {
@@ -72,11 +81,11 @@ export default class SearchComponent extends Component {
         <Text style={styles.mainTitle}>Best movies to watch</Text>
 
         <View style={styles.searchContainer}>
-          <TextInput onChangeText={this.p.onSearchTextChange.bind(this.p)}
+          <TextInput onChangeText={this.onSearchTextChange.bind(this)}
                      value={this.state.searchText}
                      placeholder="Search a movie..."
                      style={styles.movieSearchInput}/>
-          <ButtonView text="Search" onClick={this.p.search.bind(this.p)} />
+          <ButtonView text="Search" onClick={this.onSearchClicked.bind(this)} />
         </View>
 
         <ListView

@@ -33,9 +33,8 @@ export default class SearchItem extends React.Component {
       },
 
       title: {
-        fontSize: '22px'
+        fontSize: '18px'
       }
-
     };
 
     return (

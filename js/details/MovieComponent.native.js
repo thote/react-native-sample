@@ -30,8 +30,8 @@ export default class MoviesComponent extends Component {
           />
           <View style={styles.infoContainer}>
             <Text style={styles.title}>{this.movie.title}</Text>
-            <Text style={styles.normalText}>Year: {this.movie.year}</Text>
-            <Text style={styles.normalText}>Runtime: {this.movie.releasedOn} mins</Text>
+            <Text style={styles.normalText}>Year: {this.movie.releasedOn}</Text>
+            <Text style={styles.normalText}>Runtime: {this.movie.duration} mins</Text>
             <Text style={styles.normalText}>Audience Rating: {this.movie.rating}</Text>
             <Text style={styles.normalText}>Critics Rating: {this.movie.rating}</Text>
           </View>

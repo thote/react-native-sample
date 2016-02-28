@@ -8,16 +8,15 @@ export default class SearchComponent extends React.Component {
 
   constructor() {
     super();
-
+    this. moviesRep = new MoviesRepo();
     this.state = {
-      movies: []
+      movies: [],
+      searchText: ""
     };
   }
 
   componentDidMount() {
-    console.log("SearchComponentDidMount");
-    new MoviesRepo().get()
-      .then(this.onSearchResults.bind(this));
+    this.search()
   }
 
   onSearchResults(movies) {
@@ -26,19 +25,51 @@ export default class SearchComponent extends React.Component {
     })
   }
 
+  search(query) {
+    this.setState({movies: []});
+    this.moviesRep.get(query)
+      .then(this.onSearchResults.bind(this));
+  }
+
+  onSearchClick() {
+    this.search(this.state.searchText);
+  }
+
+  onSearchTextChange(event) {
+    this.setState({searchText: event.target.value});
+  }
+
+  onMovieClick(movie, e) {
+    console.log('movie clicked: ', movie);
+  }
+
   renderItem(movie) {
+    var boundClick = this.onMovieClick.bind(this, movie);
     return (
-      <li><SearchItem movie={movie} /></li>
+      <li onClick={boundClick}><SearchItem movie={movie} /></li>
     );
   }
 
   render() {
     var self = this;
-    var items = this.state.movies.map(this.renderItem);
+    var items = this.state.movies.map(this.renderItem.bind(this));
     return (
       <div>
         <div className="search">
           <span className="header">Best Movies to Watch</span>
+          <div className="searchContainer">
+            <input
+              onChange={this.onSearchTextChange.bind(this)}
+              className="searchInput"
+              type="text"
+              name="query"
+              value={this.state.searchText}
+              placeholder="Search a movie..."/>
+            <button
+              className="searchButton"
+              type="button"
+              onClick={this.onSearchClick.bind(this)}>Search</button>
+          </div>
           <ul className="moviesList">
             {items}
           </ul>

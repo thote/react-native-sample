@@ -17,13 +17,15 @@ export default class MoviesRepo {
 
   massage(response) {
     return response.movies.map((movie, index) => {
-      console.log("response:", index, movie);
       return {
         title: movie.title,
         releasedOn: movie.year,
         rating: movie.ratings.audience_score,
         duration: movie.runtime,
-        poster: movie.posters.thumbnail
+        poster: movie.posters.thumbnail,
+        originalPoster: movie.posters.original,
+        synopsis: movie.synopsis,
+
       }
     });
   }

@@ -24,3 +24,24 @@ li {
     margin: 5px;
     background-color: white;
 }
+
+.searchContainer {
+    width: 100%;
+    height: 50px;
+    clear: both;
+    padding: 10px;
+}
+
+.searchInput {
+    width: 75%;
+    height: 100%;
+    float: left;
+}
+
+.searchButton {
+    width: 21%;
+    height: 100%;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}

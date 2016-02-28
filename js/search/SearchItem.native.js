@@ -19,7 +19,11 @@ export default class MovieSearchItem extends Component {
   constructor(props) {
     super(props);
     this.movie = props.movie;
-    this.p = props.presenter;
+    this.navigator = props.navigator;
+  }
+
+  showMovieDetails(movie) {
+    this.navigator.routeTo({name: "MovieComponent", props: {movie: movie }});
   }
 
   render() {
@@ -29,7 +33,7 @@ export default class MovieSearchItem extends Component {
     }
 
     return (
-      <TouchableElement onPress={() => this.p.showMovieDetails(this.movie)}>
+      <TouchableElement onPress={() => this.showMovieDetails(this.movie)}>
         <View style={styles.container}>
           <Image
             source={{uri: this.movie.poster}}
