@@ -76,4 +76,4 @@ var styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('MovieSearchItem', () => MovieSearchItem);
+AppRegistry.registerComponent('SearchItem', () => MovieSearchItem);

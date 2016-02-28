@@ -1,12 +1,11 @@
 "use strict";
 import React from 'react';
 
-export default class MovieSearchItem extends React.Component {
+export default class SearchItem extends React.Component {
 
   constructor(props) {
     super(props);
-    this.movie = props.movie;
-    this.p = props.presenter;
+    this.movie = props.movie
   }
 
   render() {
