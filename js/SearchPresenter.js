@@ -1,4 +1,3 @@
-
 'use strict';
 import MovieComponent from "./MovieComponent.native"
 
@@ -11,10 +10,8 @@ export default class SearchPresenter {
   }
 
   fetchData(query) {
-    this.r.get()
-      .then(response => {
-        this.v.showMovies(response.movies);
-      });
+    this.r.get().
+    then(this.v.showMovies);
   }
 
   onSearchTextChange(text) {

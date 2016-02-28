@@ -24,7 +24,6 @@ export default class SearchItem extends React.Component {
       },
 
       rightSection: {
-        width: '75%',
         float: 'left',
         clean: 'none',
         color: 'black',

@@ -1,4 +1,3 @@
-
 'use strict';
 import React, {
   AppRegistry,
@@ -26,15 +25,15 @@ export default class MoviesComponent extends Component {
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
           <Image
-            source={{uri: this.movie.posters.original}}
+            source={{uri: this.movie.originalPoster}}
             style={styles.image}
           />
           <View style={styles.infoContainer}>
             <Text style={styles.title}>{this.movie.title}</Text>
             <Text style={styles.normalText}>Year: {this.movie.year}</Text>
-            <Text style={styles.normalText}>Runtime: {this.movie.runtime} mins</Text>
-            <Text style={styles.normalText}>Audience Rating: {this.movie.ratings.audience_score}</Text>
-            <Text style={styles.normalText}>Critics Rating: {this.movie.ratings.critics_score}</Text>
+            <Text style={styles.normalText}>Runtime: {this.movie.releasedOn} mins</Text>
+            <Text style={styles.normalText}>Audience Rating: {this.movie.rating}</Text>
+            <Text style={styles.normalText}>Critics Rating: {this.movie.rating}</Text>
           </View>
         </View>
 

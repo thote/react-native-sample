@@ -32,14 +32,14 @@ export default class MovieSearchItem extends Component {
       <TouchableElement onPress={() => this.p.showMovieDetails(this.movie)}>
         <View style={styles.container}>
           <Image
-            source={{uri: this.movie.posters.thumbnail}}
+            source={{uri: this.movie.poster}}
             style={styles.thumbnail}
           />
           <View style={styles.rightContainer}>
             <Text style={styles.title}>{this.movie.title}</Text>
-            <Text style={styles.otherText}>Release: {this.movie.year}</Text>
-            <Text style={styles.otherText}>Rating: {this.movie.ratings.audience_score}</Text>
-            <Text style={styles.otherText}>Duration: {this.movie.runtime} mins</Text>
+            <Text style={styles.otherText}>Release: {this.movie.releasedOn}</Text>
+            <Text style={styles.otherText}>Rating: {this.movie.rating}</Text>
+            <Text style={styles.otherText}>Duration: {this.movie.duration} mins</Text>
           </View>
         </View>
       </TouchableElement>

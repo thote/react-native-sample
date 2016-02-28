@@ -33,7 +33,8 @@ export default class SearchComponent extends Component {
   }
 
   componentDidMount() {
-    this.p.fetchData();
+    new MoviesRepo().get()
+      .then(this.showMovies.bind(this));
   }
 
   showMovies(movies) {
