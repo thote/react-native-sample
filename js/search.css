@@ -1,0 +1,16 @@
+body {
+    background-color: transparent;
+}
+
+.search {
+    background-color: darkgrey;
+    width: 500px;
+    margin: auto;
+}
+
+.header {
+    display: block;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+}

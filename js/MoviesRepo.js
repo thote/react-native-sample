@@ -10,10 +10,8 @@ var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
 export default class MoviesRepo {
 
   get(query, callback) {
-    //return fetch(this._getUrl(query));
-
     $.ajax({
-      url: this.getUrl(query),
+      url: this._getUrl(query),
       type: 'GET',
       success: function(result) {
         console.log("suceess ", result)

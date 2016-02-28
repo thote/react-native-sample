@@ -1,6 +1,8 @@
 "use strict";
 import React from 'react';
 import SearchItem from './SearchItem';
+import "./search.css"
+import MoviesRepo from "./MoviesRepo";
 
 export default class SearchComponent extends React.Component {
 
@@ -30,12 +32,32 @@ export default class SearchComponent extends React.Component {
         "original": "http://resizing.flixster.com/RFnZ-Tb8TrTVbZqlI9okuynozwk=/54x80/v1.bTsxMTQ4ODIzNztqOzE2OTAzOzIwNDg7MjAyNTszMDAw"
       }
     };
+    this.state = {
+      movies: ["Red","Green","Blue","Yellow","Black","White","Orange"]
+    }
+  }
+
+  componentDidMount() {
+    new MoviesRepo().get("panda", this.onSearchResults.bind(this));
+  }
+
+  onSearchResults(movies) {
+    console.log("onSearchResulsts: ", movies);
+    this.setState({
+      movies: movies
+    })
   }
 
   render() {
+    var self = this;
+    var movies = this.state.movies.map(function(item) {
+      return <li><SearchItem movie={self.movie}/></li>
+    });
+
     return (
-      <div>
-        This is SearchComponent
+      <div className="search">
+        <span className="header">Best Movies to Watch</span>
+        <ul>{movies}</ul>
         <SearchItem movie={this.movie} />
     </div>);
   }
