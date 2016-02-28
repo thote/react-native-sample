@@ -2,7 +2,7 @@
 import React from 'react';
 import SearchItem from './SearchItem';
 import "./search.css"
-import MoviesRepo from "./MoviesRepo";
+import MoviesRepo from "../repo/MoviesRepo";
 
 export default class SearchComponent extends React.Component {
 

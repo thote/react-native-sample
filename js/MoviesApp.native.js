@@ -8,8 +8,8 @@ import React, {
   BackAndroid
 } from 'react-native';
 
-import SearchComponent from "./SearchComponent.native";
-import MovieComponent from "./MovieComponent.native";
+import SearchComponent from "./search/SearchComponent.native.js";
+import MovieComponent from "./details/MovieComponent.native.js";
 
 var _navigator = {};
 var router = (route, navigator) => {

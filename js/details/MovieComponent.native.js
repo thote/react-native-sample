@@ -7,7 +7,7 @@ import React, {
   StyleSheet,
   Image
 } from 'react-native';
-import ButtonView from "./ButtonView";
+import ButtonView from "./../views/ButtonView";
 
 export default class MoviesComponent extends Component {
   constructor(props) {

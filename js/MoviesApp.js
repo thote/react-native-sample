@@ -2,8 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react';
 import { Router, Route, Link, browserHistory } from 'react-router'
-import SearchComponent from "./SearchComponent"
-import MovieComponent from "./MovieComponent"
+import SearchComponent from "./search/SearchComponent"
+import MovieComponent from "./details/MovieComponent"
 import './app.css'
 
 ReactDOM.render(

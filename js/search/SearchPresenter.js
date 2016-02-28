@@ -1,5 +1,5 @@
 'use strict';
-import MovieComponent from "./MovieComponent.native"
+import MovieComponent from "./../details/MovieComponent.native.js"
 
 export default class SearchPresenter {
 

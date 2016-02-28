@@ -13,9 +13,9 @@ import React, {
 
 import SearchPresenter from "./SearchPresenter";
 import MovieSearchItem from "./SearchItem.native.js";
-import LoadingView from "./LoadingView";
-import ButtonView from "./ButtonView";
-import MoviesRepo from "./MoviesRepo"
+import LoadingView from "./../loading/LoadingView";
+import ButtonView from "./../views/ButtonView";
+import MoviesRepo from "./../repo/MoviesRepo"
 
 
 export default class SearchComponent extends Component {
